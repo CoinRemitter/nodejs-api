@@ -1,0 +1,24 @@
+{
+  "name": "coinremitter-api",
+  "version": "1.0.4",
+  "description": "Official Coinremitter API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoinRemitter/nodejs-api.git"
+  },
+  "keywords": [
+    "coinremitter-nodejs-api",
+    "crypto-api-nodejs",
+    "crypto-wallet"
+  ],
+  "author": "Coinremitter <support@coinremitter.com> (https://coinremitter.com)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/CoinRemitter/nodejs-api/issues"
+  },
+  "homepage": "https://github.com/CoinRemitter/nodejs-api#readme"
+}

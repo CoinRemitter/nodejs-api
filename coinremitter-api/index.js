@@ -1,5 +1,5 @@
 
-const url = 'http://192.168.0.102/coinremitter/public/api/';
+const url = 'https://coinremitter.com/api/';
 const request = require('request');
 
 class Coinremitter {

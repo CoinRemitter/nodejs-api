@@ -1,30 +1,30 @@
-# coinremitter-nodejs
-coinremitter packege for nodejs
-## installation guide.
-you can install coinremitter package using npm in your project using : 
+# coinremitter-api
+Coinremitter package for nodejs
+## Installation guide.
+You can install Coinremitter package using npm in your project using : 
 ```
-npm install coinremitter_nodejs
+npm i coinremitter-api
 ```
  
  ## Usage of Package : 
  
- you have to include package wherever you want to use this like,
+ You need to include package wherever you want to use this like,
  ```
-const coinremitter = require('coinremitter');
-
+const coinremitter = require('coinremitter-api');
  ```
- after using name space you can access all the methods of package by creating object of class like ,
+ Now, you can access all the methods of package by creating object of class like ,
  ```
  const obj = new coinremitter('YOUR_API_KEY','PASSWORD','BTC');
  ```
  
 
 ### Get Balance : 
-you can get balance of your wallet using get_balance call.
+You can get balance of your wallet using get_balance call.
 ```
 balance = obj.getBalance();
 ```
-this will return either success response or error response if something went wrong.like below is the success response : 
+This will return either success response or error response(if something went wrong)
+Success Response : 
 ```
 {
   "flag": 1,
@@ -43,7 +43,7 @@ You can get new wallet address using folowing method:
 ```
 address = obj.getNewAddress();
 ```
-success response : 
+Success Response : 
 ```
 {
   "flag": 1,
@@ -56,14 +56,14 @@ success response :
 }
 
 ```
-also you can assign lable to your address with passing parameter to get_new_address method like:
+You can also assign lable to your address with passing parameter to get_new_address method like:
 ```
 param = {
     'label':'my_label'
 }
 address = obj.getNewAddress(param);
 ```
-the response will add given label at label key.
+The response will add given label at label key.
 ```
 {
     "flag":1,
@@ -76,14 +76,14 @@ the response will add given label at label key.
 }
 ```
 ### Validate wallet address
-for validation wallet address use folowing method:
+For validation wallet address use folowing method:
 ```
 param = {
     'address':'your_Address_to_validate'
 }
 validate = obj.validateAddress(param);
 ```
-success response :  
+Success Response :  
 ```
 {
   "flag": 1,
@@ -95,10 +95,10 @@ success response :
 }
 
 ```
-if ```valid``` in ```data``` response is ```true``` then the given address is valid,otherwise it's a invalid address.
+If ```valid``` in ```data``` response is ```true``` then the given address is valid,otherwise it's a invalid address.
 
 ### Withdraw amount 
-to withdraw amount to specific  address following method will use : 
+To withdraw amount of specific address following method will use : 
 
 ```
 param = {
@@ -107,7 +107,7 @@ param = {
 }
 withdraw = obj.withdraw(param);
 ```
-success response : 
+Success Response : 
 ```
 {
     "flag":1,
@@ -132,14 +132,14 @@ success response :
 ```
 
 ### Get Transaction
-get transaction detail using id received from ```withdraw amount``` response's ```id``` or from webhook's ```id``` field using following method :
+Get transaction detail using id received from ```withdraw amount``` response's ```id``` or from webhook's ```id``` field using following method :
 ```
 param = {
     'id':'5b5ff10a8ebb830edb4e2a22'
 }
 transaction = obj.getTransaction(param);
 ```
-success response : 
+Success Response : 
 ```
 {
   "flag": 1,
@@ -164,7 +164,7 @@ success response :
   }
 }
 ```
-if reponse data object contains ```type``` is equal to ```send``` then response will be given as below
+If reponse data object contains ```type``` is equal to ```send``` then response will be given as below
 ```
 {
     "flag":1,
@@ -191,7 +191,7 @@ if reponse data object contains ```type``` is equal to ```send``` then response 
 }
 ```
 ### Create Invoice
-you can create invoice using following method : 
+You can create invoice using following method : 
 ```
 param = {
     'amount':123,      //required.
@@ -206,7 +206,7 @@ param = {
 invoice  = obj.createInvoice(param);
 ```
 
-success response : 
+Success Response : 
 ```
 {
   "flag": 1,
@@ -247,7 +247,7 @@ success response :
 ```
 
 ### Get Invoice
-get invoice detail using invoice_id received using following method :
+Get invoice detail using invoice_id received using following method :
 ```
 param = {
     'invoice_id':'BTC646'
@@ -255,7 +255,7 @@ param = {
 
 invoice = obj.getInvoice(param);
 ```
-success response : 
+Success Response : 
 ```
 {
   "flag": 1,
@@ -297,7 +297,7 @@ success response :
 ```
 
 ### Get Coin Rate
-get coin rate using following method :
+Get coin rate using following method :
 ```
 rate = obj.getCoinRate();
 ```
@@ -342,4 +342,4 @@ success response :
 }
 ```
 
-**for further reference please visit our [api documentation](https://coinremitter.com/docs)**
+**For further reference please visit our [api documentation](https://coinremitter.com/docs)**
