@@ -28,7 +28,7 @@ const version = 'v3';
 
 const url = 'https://coinremitter.com/api/';
 
-const plugin_version = '1.0.7';
+const plugin_version = '1.0.9';
 
 const user_agent = 'CR@' + version + ',node plugin@' + plugin_version;
 
