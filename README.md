@@ -1,170 +1,198 @@
-# coinremitter-api
-Coinremitter package for nodejs
-## Installation guide.
-You can install Coinremitter package using npm in your project using : 
+Coinremitter package for Node JS
+===
+
+Coinremitter is a [crypto payment processor](http://coinremitter.com). Accept Bitcoin, Tron, Binance (BEP20), BitcoinCash, Ethereum, Litecoin, Dogecoin, USDTERC20, USDTTRC20, Dash, Monero etc.
+
+**What is the Crypto Payment Processor?**
+
+The Crypto Payment Processor acts as a mediator between merchants and customers, allowing the merchant to receive payments in the form of cryptocurrency.
+
+## Installation Guide:
+You can install the Coinremitter package using npm in your project with the help of:
 ```
 npm i coinremitter-api
 ```
  
- ## Usage of Package : 
+## Usage of the Package:
  
- You need to include package wherever you want to use this like,
+ You need to include the package like this wherever you want to use this:
  ```
-const coinremitter = require('coinremitter-api');
+ const coinremitter = require('coinremitter-api');
  ```
- Now, you can access all the methods of package by creating object of class like ,
+ Now, you can access all the methods of the package by creating an object of class like this:
  ```
  const obj = new coinremitter('YOUR_API_KEY','PASSWORD','BTC');
  ```
  
 
-### Get Balance : 
-You can get balance of your wallet using get_balance call.
+### Get Balance
+You can get the balance of your wallet using the getBalance call.
 ```
-balance = obj.getBalance();
+balance = obj.getBalance(function(err,res){
+    if(!err)
+        console.log(res);
+});
 ```
-This will return either success response or error response(if something went wrong)
-Success Response : 
+This will return either a success response or an error response(if something went wrong)
+Success response:
+
 ```
 {
-  "flag": 1,
-  "msg": "Get balance successfully !",
-  "action": "get-balance",
-  "data": {
-    "balance": 1.55882809,
-    "wallet_name": "wp-withd",
-    "coin_name": "Bitcoin"
-  }
+   "flag":1,
+   "msg":"Get balance successfully",
+   "action":"get-balance",
+   "data":{
+      "balance":0.2457,
+      "wallet_name":"my-wallet",
+      "coin_name":"Bitcoin"
+   }
 }
 ```
 
 ### Create New Wallet Address
-You can get new wallet address using folowing method:
+You can get a new wallet address using the following method:
 ```
-address = obj.getNewAddress();
+address = obj.getNewAddress(function(err,res){
+    if(!err)
+        console.log(res);
+});
 ```
-Success Response : 
+Success response: 
 ```
 {
-  "flag": 1,
-  "msg": "New address created successfully !",
-  "action": "get-new-address",
-  "data": {
-    "address": "QhZ29R3bj5gVxW67wtL75c4UnaHjr8HBje",
-    "label": ""
-  }
+   "flag":1,
+   "msg":"New address created successfully .",
+   "action":"get-new-address",
+   "data":{
+      "address":"MMtU5BzKcrewdTzru9QyT3YravQmzokh",
+      "label":"",
+      "qr_code":"https://coinremitter.com/qr/btc/image.png"
+   }
 }
 
 ```
-You can also assign lable to your address with passing parameter to get_new_address method like:
+You can also assign a label to your address with a passing parameter to the getNewAddress method like this:
 ```
 param = {
-    'label':'my_label'
+  'label':'my-label'
 }
-address = obj.getNewAddress(param);
+address = obj.getNewAddress(param,function(err,res){
+    if(!err)
+        console.log(res);
+});
 ```
-The response will add given label at label key.
+The response will add the given label at the label key.
 ```
 {
-    "flag":1,
-    "msg":"New address created successfully !",
-    "action":"get-new-address",
-    "data":{
-        "address":"MMtU5BzKcrew9BdTzru9QyT3YravQmzokh",
-        "label":"my_label"
-    }
+   "flag":1,
+   "msg":"New address created successfully .",
+   "action":"get-new-address",
+   "data":{
+      "address":"MMtU5BzKcrewdTzru9QyT3YravQmzokh",
+      "label":"my-label",
+      "qr_code":"https://coinremitter.com/qr/btc/image.png"
+   }
 }
 ```
-### Validate wallet address
-For validation wallet address use folowing method:
+### Validate the wallet address
+For validation of a wallet address, use the following method:
 ```
 param = {
-    'address':'your_Address_to_validate'
-}
-validate = obj.validateAddress(param);
+  'address':'QdN2STEHi7omQwVMjb863SVP7cxm3Nkp'
+};
+validate = obj.validateAddress(param,function(err,res){
+    if(!err)
+        console.log(res);
+});
 ```
-Success Response :  
+Success response:  
 ```
 {
-  "flag": 1,
-  "msg": "success",
-  "action": "validate-address",
-  "data": {
-    "valid": true
-  }
+   "flag":1,
+   "msg":"Success !",
+   "action":"validate-address",
+   "data":{
+      "valid":true
+   }
 }
 
 ```
-If ```valid``` in ```data``` response is ```true``` then the given address is valid,otherwise it's a invalid address.
+If the ```valid``` in ```data``` response is ```1``` then the given address is valid,otherwise it's an invalid address.
 
-### Withdraw amount 
-To withdraw amount of specific address following method will use : 
+### Withdraw amount
+To withdraw the amount from a specific address, use the following method:
 
 ```
 param = {
-    'to_address':'YOUR_ADDRESS',
-    'amount':123
+    'to_address':'QfZzaLPmAMbYSVRN9vb6A9k875LxbU',
+    'amount':0.0001
 }
-withdraw = obj.withdraw(param);
+
+withdraw = obj.withdraw(param,function(err,res){
+    if(!err)
+        console.log(res);
+});
 ```
-Success Response : 
+Success response:
 ```
 {
-    "flag":1,
-    "msg":"Amount Successfully Withdraw !",
-    "action":"withdraw",
-    "data":{
-        "id":"5b5ff10a8ebb830edb4e2a22",
-        "txid":"1147aca98ced7684907bd469e80cdf7482fe740a1aaf75c1e55f7a60f725ba28",
-        "explorer_url":"http://btc.com/exp/1147aca98ced7684907bd469e80cdf7482fe740a1aaf75c1e55f7a60f725ba28",
-        "amount":0.1,
-        "transaction_fees":0.001,
-        "processing_fees":0.00023,
-        "total_amount":0.10123,
-        "to_address":"YOUR_ADDRESS",
-        "wallet_id":"5c42ea0ab846fe751421cfb2",
-        "wallet_name":"wallet_name",
-        "coin_short_name":"BTC",
-        "date":"2019-06-02 01:02:03"
-    }
+   "flag":1,
+   "msg":"Amount Successfully Withdraw.",
+   "action":"withdraw",
+   "data":{
+      "id":"5b5ff10a8ebb830edb4e2a22",
+      "txid":"1147aca98ced7684907bd469e80f7482f40a1aaf75c1e55f7a60f725ba28",
+      "explorer_url":"http://btc.com/exp/1147aca98ced7684907bd469e80f7482f40a1aaf75c1e55f7a60f725ba28",
+      "amount":2,
+      "transaction_fees":"0.00002000",
+      "processing_fees":"0.00460000",
+      "total_amount":"0.00472",
+      "to_address":"QfZzaLPmAMbYSVRN9vb6A9k875LxbU",
+      "wallet_id":"5c42a0ab846fe75142cfb2",
+      "wallet_name":"my-wallet",
+      "coin_short_name":"BTC",
+      "date":"2019-06-02 01:02:03"
+   }
 }
-
 ```
+The dates received in the response are in the UTC format.
 
-### Get Transaction
-Get transaction detail using id received from ```withdraw amount``` response's ```id``` or from webhook's ```id``` field using following method :
+### Get the Transaction Details
+Retrieve transaction information using the ID received from the "withdraw amount" response's ID or from the "id" field in the webhook using the following method.
+
 ```
 param = {
     'id':'5b5ff10a8ebb830edb4e2a22'
 }
-transaction = obj.getTransaction(param);
+
+transaction = obj.getTransaction(param,function(err,res){
+    if(!err)
+        console.log(res);
+});
 ```
-Success Response : 
+Success response: 
 ```
 {
-  "flag": 1,
-  "msg": "success",
-  "action": "get-transaction",
-  "data": {
-    "id": "5e01a3b1b846fe2ab4276273",
-    "txid": "cef97db05f6afd5a5a30ff1b20d32262b760748acb88317479431be9ca771881",
-    "explorer_url": "http://192.168.0.102/coinremitter/public/tcn/tx/cef97db05f6afd5a5a30ff1b20d32262b760748acb88317479431be9ca771881",
-    "type": "send",
-    "merchant_id": "5bc46fb28ebb8363d2657347",
-    "coin_short_name": "TCN",
-    "wallet_id": "5e01a2b7b846fe7a033e2962",
-    "wallet_name": "MyTCNWallet",
-    "address": "QRyK17VnxQxdWmLZSNyh2jVW2SDa5TzA7B",
-    "amount": 0.1,
-    "confirmations": 71846,
-    "date": "2019-12-24 11:05:45",
-    "transaction_fees": 0.000001,
-    "processing_fees": 0.005,
-    "total_amount": 0.105001
-  }
+    "flag":1,
+    "msg":"success",
+    "action":"get-transaction",
+    "data":{
+        "id":"5b5ff10a8ebb830edb4e2a22",
+        "txid":"1147aca98ced7684907bd469e80cdf7482fe740a1aaf75c1e55f7a60f725ba28",
+        "explorer_url":"http://btc.com/exp/1147aca98ced7684907bd469e80cdf7482fe740a1aaf75c1e55f7a60f725ba28",
+        "type":"receive",
+        "merchant_id":"5bc46fb28ebb8363d2657347",
+        "coin_short_name":"BTC",
+        "wallet_id":"5c42ea0ab846fe751421cfb2",
+        "wallet_name":"wallet_name",
+        "address":"QYTZkkKz7n1sMuphtxSPdau6BQthZfpnZC",
+        "amount":0.0003,
+        "confirmations":3,
+        "date":"2018-08-15 15:10:42"
+    }
 }
 ```
-If reponse data object contains ```type``` is equal to ```send``` then response will be given as below
+If the response data object contains ```type``` is equal to ```send``` then the response will be given as shown below:
 ```
 {
     "flag":1,
@@ -182,163 +210,261 @@ If reponse data object contains ```type``` is equal to ```send``` then response 
         "address":"QYTZkkKz7n1sMuphtxSPdau6BQthZfpnZC",
         "amount":0.0003,
         "confirmations":3,
-        "date":"2018-08-15 15:10:42"
+        "date":"2018-08-15 15:10:42",
         "transaction_fees":0.001,
         "processing_fees":0.1,
         "total_amount":"2.10100000"
-        
     }
 }
 ```
-### Create Invoice
-You can create invoice using following method : 
+The dates received in the response are in the UTC format.
+
+### Get Transaction Details By Address
+Get transaction details by the given address:
 ```
 param = {
-    'amount':123,      //required.
-    'notify_url':'https://notification.url', //required,url on which you wants to receive notification,
-    'name':'',//optional,
-    'currency':'usd',//optional,
-    'suceess_url':'https://success.url',//optional,
-    'fail_url':'https://fail.url',//optional,
-    'description':'',//optional.
-}
-
-invoice  = obj.createInvoice(param);
+  'address':'MLjDMFsob8gk9EX6tj8KUKSpmHM6qG2qFK',
+};
+transaction = obj.getTransactionByAddress(param,function(err,res){
+    if(!err)
+        console.log(res);
+});
 ```
-
-Success Response : 
+Success response : 
 ```
 {
-  "flag": 1,
-  "msg": "Invoice successfully created !!!",
-  "action": "create-invoice",
-  "data": {
-    "id": "5e47cc7c33d3c37a2b0410a2",
-    "invoice_id": "BTC646",
-    "merchant_id": "5bc46fb28ebb8363d2657347",
-    "url": "http://192.168.0.102/coinremitter/public/invoice/5e47cc7c33d3c37a2b0410a2",
-    "total_amount": {
-      "BTC": 0.01257558,
-      "USD": 123
-    },
-    "paid_amount": [],
-    "usd_amount": 123,
-    "conversion_rate": {
-      "USD_BTC": 0.00010224,
-      "BTC_USD": 9780.86
-    },
-    "base_currency": "USD",
-    "coin": "BTC",
-    "name": "avc",
-    "description": "",
-    "wallet_name": "wp-withd",
-    "address": "QNBAmyqiMwskJZ6sY4WMzTF5ziQoVj5W9Y",
-    "status": "Pending",
-    "status_code": 0,
-    "suceess_url": "https://success.url",
-    "fail_url": "https://fail.url",
-    "notify_url": "",
-    "expire_on": false,
-    "invoice_date": "2020-02-15 16:18:28",
-    "last_updated_date": "2020-02-15 16:18:28"
-  }
+   "flag":1,
+   "msg":"success",
+   "action":"get-transaction-by-address",
+   "data":[
+      {
+         "id":"5b7650458ebb8306365624a2",
+         "txid":"7a6ca109c7c651f9b70a7d4dc8fa77de322e420119c5d2470bce7f08ba0cd1d6",
+         "explorer_url":"http://coin-explorer-url/exp/7a6ca109c7c651f9b70a7d4dc8fa7...",
+         "merchant_id":"5bc46fb28ebb8363d2657347",
+         "type":"receive",
+         "coin_short_name":"BTC",
+         "wallet_id":"5c42ea0ab846fe751421cfb2",
+         "wallet_name":"my-wallet",
+         "address":"MLjDMFsob8gk9EX6tj8KUKSpmHM6qG2qFK",
+         "amount":"2",
+         "confirmations":3,
+         "date":"2018-08-17 10:04:13"
+      },
+      {
+         "id":"23sdew232158ebb8306365624a2",
+         "txid":"7a6ca109c7c651f9b70fdgfg44er34re7de322e420119c5d2470bce7f08ba0cd1d6",
+         "explorer_url":"http://coin-explorer-url/exp/2322ereer344c7c651f9b70a7d4dc8fa7...",
+         "merchant_id":"3434df4w28ebb8363d2657347",
+         "type":"receive",
+         "coin_short_name":"BTC",
+         "wallet_id":"5c42ea0ab846fe751421cfb2",
+         "wallet_name":"my-wallet",
+         "address":"MLjDMFsob8gk9EX6tj8KUKSpmHM6qG2qFK",
+         "amount":"1",
+         "confirmations":2,
+         "date":"2018-08-17 10:05:13"
+      }
+   ]
 }
-
 ```
+The dates received in the response are in the UTC format.
+
+### Create Invoice
+You can create an invoice using the following method:
+```
+param = {
+    'amount':'1',      //required.
+    'notify_url':'https://yourdomain.com/notify-url', //required,you will receive notification on this url,
+    'name':'my-invoice',//optional,
+    'currency':'USD',//optional,
+    'expire_time':60,//in minutes,optional,
+    'description':'My invoice description',//optional,
+    'custom_data1':'',//optional
+    'custom_data2':''//optional
+};
+
+invoice  = obj.createInvoice(param,function(err,res){
+    if(!err)
+        console.log(res);
+});
+```
+
+Success response : 
+```
+{
+   "flag":1,
+   "msg":"success",
+   "action":"create-invoice",
+   "data":{
+      "id":"5de7ab46b846fe6aa15931b2",
+      "invoice_id":"BTC122",
+      "merchant_id":"5bc46fb28ebb8363d2657347",
+      "url":"https://coinremitter.com/invoice/5de7ab46b846fe6aa15931b2",
+      "total_amount":{
+         "BTC":"0.00020390",
+         "USD":"2.21979838",
+      },
+      "paid_amount":[
+      ],
+      "usd_amount":"2.21979838",
+      "conversion_rate":{
+         "USD_BTC":"0.00009186",
+         "BTC_USD":"10886.83"
+      },
+      "base_currency":"USD",
+      "coin":"BTC",
+      "name":"random name",
+      "description":"",
+      "wallet_name":"my-wallet",
+      "address":"QbrhNkto3732i36NYmZUNwCo4gvTJK3992",
+      "status":"Pending",
+      "status_code":0,
+      "notify_url":"http://yourdomain.com/notify-url",
+      "suceess_url":"http://yourdomain.com/success-url",
+      "fail_url":"http://yourdomain.com/fail-url",
+      "expire_on":"2019-12-04 18:39:10",
+      "invoice_date":"2019-12-04 18:19:10",
+      "custom_data1":"",
+      "custom_data2":"",
+      "last_updated_date":"2019-12-04 18:19:10"
+   }
+}
+```
+The dates received in the response are in the UTC format.
 
 ### Get Invoice
-Get invoice detail using invoice_id received using following method :
+Get invoice details using invoice_id received using the following method:
 ```
 param = {
-    'invoice_id':'BTC646'
-}
-
-invoice = obj.getInvoice(param);
+  'invoice_id':'BTC02'
+};
+invoice = obj.getInvoice(param,function(err,res){
+    if(!err)
+        console.log(res);
+});
 ```
-Success Response : 
+Success response:
 ```
 {
-  "flag": 1,
-  "msg": "success",
-  "action": "get-invoice",
-  "data": {
-    "id": "5e47cc7c33d3c37a2b0410a2",
-    "invoice_id": "BTC646",
-    "merchant_id": "5bc46fb28ebb8363d2657347",
-    "url": "http://192.168.0.102/coinremitter/public/invoice/5e47cc7c33d3c37a2b0410a2",
-    "total_amount": {
-      "BTC": 0.01257558,
-      "USD": 123
-    },
-    "paid_amount": [],
-    "usd_amount": 123,
-    "conversion_rate": {
-      "USD_BTC": 0.00010224,
-      "BTC_USD": 9780.86
-    },
-    "base_currency": "USD",
-    "coin": "BTC",
-    "name": "avc",
-    "description": "",
-    "wallet_name": "wp-withd",
-    "address": "QNBAmyqiMwskJZ6sY4WMzTF5ziQoVj5W9Y",
-    "payment_history": [],
-    "status": "Pending",
-    "status_code": 0,
-    "wallet": "wpwithd",
-    "suceess_url": "https://success.url",
-    "fail_url": "https://fail.url",
-    "notify_url": "",
-    "expire_on": false,
-    "invoice_date": "2020-02-15 16:18:28",
-    "last_updated_date": "2020-02-15 16:18:28"
-  }
+    "flag":1,
+    "msg":"success",
+    "action":"get-invoice",
+    "data":{
+        "id":"5b7650458ebb8306365624a2",
+        "invoice_id":"BTC02",
+        "merchant_id":"5bc46fb28ebb8363d2657347",
+        "url":"https://coinremitter.com/invoice/5b7650458ebb8306365624a2",
+        "total_amount":{
+             "BTC":"0.00020390",
+             "USD":"2.21979838",
+        },
+        "paid_amount": {
+            "BTC": "0.00020000",
+            "USD": "2.167729279"
+        },
+        "usd_amount":"2.21979838",
+        "conversion_rate":{
+             "USD_BTC":"0.00009186",
+             "BTC_USD":"10886.83"
+        },
+        "base_currency": "USD",
+        "coin":"BTC",
+        "name":"random name",
+        "description":"",
+        "wallet_name":"my-wallet",
+        "address":"QbrhNkto3732i36NYmZUNwCo4gvTJK3992",
+        "payment_history":[
+                {
+                    "txid":"c4b853d4be7586798870a4aa766e3bb781eddb24aaafd81da8f66263017b872d",
+                    "explorer_url":"http://btc.com/exp/c4b853d4be7586798870a4aa766e3bb781eddb24aaafd81da8f66263017b872d",
+                    "amount":"0.0001",
+                    "date":"2019-12-04 18:21:05",
+                    "confirmation":781
+                },
+                {
+                    "txid":"a2541253ab72d7cf29f2f9becb1e31320dd0ed418f761ab1973dc9e412a51c7f",
+                    "explorer_url":"http://btc.com/exp/a2541253ab72d7cf29f2f9becb1e31320dd0ed418f761ab1973dc9e412a51c7f",
+                    "amount":"0.0001",
+                    "date":"2019-12-04 18:22:23",
+                    "confirmation":778
+                }
+        ],
+        "status":"Under Paid",
+        "status_code":2,
+        "wallet_id": "6347e0e9f4efc676380afde7",
+        "suceess_url":"http://yourdomain.com/success-url",
+        "fail_url":"http://yourdomain.com/fail-url",
+        "notify_url":"http://yourdomain.com/notify-url",
+        "expire_on":"2019-12-04 18:39:10",
+        "invoice_date":"2019-12-04 18:19:10",
+        "custom_data1": "",
+        "custom_data2": "",
+        "last_updated_date":"2019-12-04 18:22:23"
+    }
+}
+```
+The dates received in the response are in the UTC format.
+
+### Get Crypto Rate
+Get the current crypto rate in fiat currencies using the following method:
+```
+param = {
+  'fiat_symbol':'USD',
+  'fiat_amount':'1'
+};
+rate = obj.getFiatToCryptoRate(param,function(err,res){
+    if(!err)
+        console.log(res);
+});
+```
+Success response: 
+```
+{
+   "flag":1,
+   "msg":"success",
+   "action":"get-fiat-to-crypto-rate",
+   "data":{
+      "crypto_amount":"0.02123593",
+      "crypto_symbol":"BTC",
+      "crypto_currency":"Bitcoin",
+      "fiat_amount":"1",
+      "fiat_symbol":"USD"
+   }
 }
 ```
 
 ### Get Coin Rate
-Get coin rate using following method :
+Get the coin rate using the following method:
 ```
-rate = obj.getCoinRate();
+rate = obj.getCoinRate(function(err,res){
+    if(!err)
+        console.log(res);
+});
 ```
-success response : 
+Success response:
 ```
 {
-  "flag": 1,
-  "msg": "success",
-  "action": "get-coin-rate",
-  "data": {
-    "BTC": {
-      "symbol": "BTC",
-      "name": "Bitcoin",
-      "price": 9780.86
-    },
-    "LTC": {
-      "symbol": "LTC",
-      "name": "Litecoin",
-      "price": 72.85
-    },
-    "BCH": {
-      "symbol": "BCH",
-      "name": "Bitcoin Cash",
-      "price": 438.5
-    },
-    "XRP": {
-      "symbol": "XRP",
-      "name": "Ripple",
-      "price": 0.26995
-    },
-    "USDT": {
-      "symbol": "USDT",
-      "name": "Tether",
-      "price": 0.992122
-    },
-    "TCN": {
-      "symbol": "TCN",
-      "name": "Test Coin",
-      "price": 47.09
-    }
-  }
+   "flag":1,
+   "msg":"success",
+   "action":"get-coin-rate",
+   "data":{
+      "BTC":{
+         "symbol":"BTC",
+         "name":"Bitcoin",
+         "price":10886.83
+      },
+      "LTC":{
+         "symbol":"LTC",
+         "name":"Litecoin",
+         "price":47
+      },
+      "DOGE":{
+         "symbol":"DOGE",
+         "name":"DogeCoin",
+         "price":235.26
+      }
+   }
 }
 ```
 
