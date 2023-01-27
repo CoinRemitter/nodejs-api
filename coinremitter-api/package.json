@@ -1,6 +1,6 @@
 {
   "name": "coinremitter-api",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Official Coinremitter API",
   "main": "index.js",
   "scripts": {

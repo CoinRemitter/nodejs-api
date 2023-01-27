@@ -251,7 +251,7 @@ class Coinremitter {
      */
     getCoinRate(callback){
         const api_data = {
-            api_name:'get-coin-rate',
+            api_name:'/get-coin-rate',
             coin:this.coin
         };
         api_call.apiGetCall(api_data,callback);
