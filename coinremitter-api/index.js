@@ -629,7 +629,6 @@ class Coinremitter {
     async #apiPostCall(api_name, param = {}, callback) {
         try {
             const apiUrl = url + version + api_name;
-            console.log(apiUrl);
             const options = {
                 method: 'POST',
                 headers: {
