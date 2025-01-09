@@ -1,7 +1,7 @@
 {
   "name": "coinremitter-api",
-  "version": "1.1.0",
-  "description": "Official Coinremitter API",
+  "version": "1.1.1",
+  "description": "Official Coinremitter API for nodejs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,5 +20,5 @@
   "bugs": {
     "url": "https://github.com/CoinRemitter/nodejs-api/issues"
   },
-  "homepage": "https://github.com/CoinRemitter/nodejs-api#readme"
+  "homepage": "https://coinremitter.com"
 }
